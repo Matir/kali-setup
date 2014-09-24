@@ -3,7 +3,6 @@ strace
 byobu
 cryptsetup
 lvm2
-byobu
 gnupg2
 opensc
 scdaemon
