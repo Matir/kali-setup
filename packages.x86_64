@@ -1,0 +1,4 @@
+ia32-libs
+gcc-multilib
+g++-multilib
+wine-bin:i386
