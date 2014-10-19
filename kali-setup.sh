@@ -13,6 +13,25 @@ if [[ `id -u` -ne 0 ]] ; then
   die 'Must be executed as root.'
 fi
 
+# CD to current dir
+if [[ $0 != "bash" ]] ; then
+  cd `dirname $0`
+fi
+
+# Allow bootstrapping from just the script
+if [[ ! -f packages ]] ; then
+  echo "Packages not found, bootstrapping from GitHub."
+  if [[ "/bin/which git" == "" ]] ; then
+    echo "Git not found, trying to install."
+    /usr/bin/apt-get --yes install git
+  fi
+  /usr/bin/git clone https://github.com/Matir/kali-setup
+  if [[ $? -ne 0 ]] ; then die "Unable to clone repo." ; fi
+  echo "Cloned, jumping to next bin."
+  cd kali-setup
+  exec ./kali-setup.sh
+fi
+
 PACKAGES=`cat packages`
 
 # Add architecture-specific packages
