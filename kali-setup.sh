@@ -66,3 +66,8 @@ fi
   die "Could not apt-get update."
 /usr/bin/apt-get --yes install ${PACKAGES} || \
   die "Could not install packages."
+
+# Install chrome
+/usr/bin/wget --quiet -O /tmp/google-chrome.deb \
+  https://dl.google.com/linux/direct/google-chrome-beta_current_${ARCH}.deb
+/usr/bin/dpkg -i /tmp/google-chrome.deb
