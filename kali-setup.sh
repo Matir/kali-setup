@@ -7,7 +7,7 @@ die() { echo "$@" 1>&2; exit 1; }
 # Figure out our environment
 ARCH=`uname -m`
 KALI=`grep -ci kali /etc/debian_version`
-X=`/usr/bin/dpkg-query -l xorg | grep -c '^ii'`
+X=`/usr/bin/dpkg-query -l xserver-xorg | grep -c '^ii'`
 
 if [[ `id -u` -ne 0 ]] ; then
   die 'Must be executed as root.'
@@ -68,8 +68,15 @@ fi
   die "Could not install packages."
 
 # Install chrome
-/usr/bin/wget --quiet -O /tmp/google-chrome.deb \
-  https://dl.google.com/linux/direct/google-chrome-beta_current_${ARCH}.deb
-/usr/bin/dpkg -i /tmp/google-chrome.deb || \
-  /usr/bin/apt-get install -f || \
-  die "Could not install chrome."
+if [ "$X" -gt "0" ] ; then
+  if [ "$ARCH" == "x86_64" ] ; then
+    CHROME_ARCH="amd64"
+  else
+    CHROME_ARCH="${ARCH}"
+  fi
+  /usr/bin/wget --quiet -O /tmp/google-chrome.deb \
+    https://dl.google.com/linux/direct/google-chrome-beta_current_${CHROME_ARCH}.deb
+  /usr/bin/dpkg -i /tmp/google-chrome.deb || \
+    /usr/bin/apt-get install -f || \
+    die "Could not install chrome."
+fi
