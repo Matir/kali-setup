@@ -21,7 +21,7 @@ fi
 # Allow bootstrapping from just the script
 if [[ ! -f packages ]] ; then
   echo "Packages not found, bootstrapping from GitHub."
-  if [[ "/bin/which git" == "" ]] ; then
+  if ! /bin/which git > /dev/null ; then
     echo "Git not found, trying to install."
     /usr/bin/apt-get --yes install git
   fi
