@@ -77,6 +77,6 @@ if [ "$X" -gt "0" ] ; then
   /usr/bin/wget --quiet -O /tmp/google-chrome.deb \
     https://dl.google.com/linux/direct/google-chrome-beta_current_${CHROME_ARCH}.deb
   /usr/bin/dpkg -i /tmp/google-chrome.deb || \
-    /usr/bin/apt-get install -f || \
+    /usr/bin/apt-get install -f -y || \
     die "Could not install chrome."
 fi
