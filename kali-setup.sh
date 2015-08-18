@@ -80,3 +80,9 @@ if [ "$X" -gt "0" ] ; then
     /usr/bin/apt-get install -f -y || \
     die "Could not install chrome."
 fi
+
+# Install python packages
+/usr/bin/apt-get --yes install python-dev python-pip || \
+  die "Could not install python dependencies."
+/usr/bin/pip install `cat packages.python` || \
+  die "Could not install python packages."
