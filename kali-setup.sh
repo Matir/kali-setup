@@ -86,3 +86,9 @@ fi
   die "Could not install python dependencies."
 /usr/bin/pip install `cat packages.python` || \
   die "Could not install python packages."
+
+# Install openjdk packages
+/usr/bin/apt-get --yes install openjdk-8-jre-headless || \
+  die "Could not install dependencies."
+/usr/bin/pip install `libgcc-6 libdev-9` || \
+  die "Failed to install required packages."
